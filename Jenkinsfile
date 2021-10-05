@@ -59,7 +59,9 @@ pipeline{
             steps{
                 echo "====++++executing deploy container++++===="
                 sh """
-                    docker run -d -p 8000:8000 --name dangoApp karimelsayad247/django-app:dev
+                    docker container stop djangoApp-dev || true
+                    docker container rm djangoApp-dev || true
+                    docker container run -d -p 8000:8000 --name dangoApp-dev karimelsayad247/django-app:dev
                 """
             }
             post{
@@ -76,11 +78,11 @@ pipeline{
     post{
         success{
             echo "========pipeline executed successfully ========"
-            slacksend(color: "#008800", message: "App built and deployed successfully")
+            slackSend(color: "#008800", message: "App built and deployed successfully")
         }
         failure{
             echo "========pipeline execution failed========"
-            slacksend(color: "#880000", message: "${env.JOB_NAME}: Pipeline failed: ")
+            slackSend(color: "#880000", message: "${env.JOB_NAME}: Pipeline failed: ")
         }
     }
 }
