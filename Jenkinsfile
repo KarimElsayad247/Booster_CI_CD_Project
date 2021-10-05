@@ -76,9 +76,11 @@ pipeline{
     post{
         success{
             echo "========pipeline executed successfully ========"
+            slacksend(color: "#008800", message: "App built and deployed successfully")
         }
         failure{
             echo "========pipeline execution failed========"
+            slacksend(color: "#880000", message: "${env.JOB_NAME}: Pipeline failed: ")
         }
     }
 }
