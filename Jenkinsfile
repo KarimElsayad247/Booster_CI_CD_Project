@@ -21,7 +21,7 @@ pipeline{
             steps{
                 echo "====++++executing docker build++++===="
                 sh """
-                    echo "building here"
+                    docker build -t karimelsayad/djangoApp:dev
                 """
             }
             post{
@@ -31,6 +31,45 @@ pipeline{
                 failure{
                     echo "====++++docker build execution failed++++===="
                 }
+            }
+        }
+        stage("docker push"){
+            steps{
+                echo "====++++executing docker push++++===="
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                        docker login -u ${USERNAME} -p ${PASSWORD}
+                        
+                        docker push karimelsayad247/hello-world:push-test
+                    """
+                    // docker push karimelsayad247/djangoApp:dev
+                }
+            }
+            post{
+                success{
+                    echo "====++++docker push executed successfully++++===="
+                }
+                failure{
+                    echo "====++++docker push execution failed++++===="
+                }
+        
+            }
+        }
+        stage("deploy container"){
+            steps{
+                echo "====++++executing deploy container++++===="
+                sh """
+                    docker run -d -p 8000:8000 --name dangoApp django-app:dev
+                """
+            }
+            post{
+                success{
+                    echo "====++++deploy container executed successfully++++===="
+                }
+                failure{
+                    echo "====++++deploy container execution failed++++===="
+                }
+        
             }
         }
     }
