@@ -39,7 +39,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
                         docker login -u ${USERNAME} -p ${PASSWORD}
-                        docker push karimelsayad247/hello-world:push-test
+                        docker push karimelsayad247/django-app:dev
                     """
                 }
             }
