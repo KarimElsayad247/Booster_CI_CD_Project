@@ -21,7 +21,7 @@ pipeline{
             steps{
                 echo "====++++executing docker build++++===="
                 sh """
-                    docker build -t karimelsayad/djangoApp:dev
+                    docker build -t karimelsayad/django-app:dev
                 """
             }
             post{
@@ -42,7 +42,7 @@ pipeline{
                         
                         docker push karimelsayad247/hello-world:push-test
                     """
-                    // docker push karimelsayad247/djangoApp:dev
+                    // docker push karimelsayad247/django-app:dev
                 }
             }
             post{
