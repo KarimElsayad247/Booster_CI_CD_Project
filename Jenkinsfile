@@ -6,7 +6,7 @@ pipeline{
         stage("fetch"){
             steps{
                 echo "========executing fetch========"
-                git https://github.com/KarimElsayad247/Booster_CI_CD_Project.git
+                git "https://github.com/KarimElsayad247/Booster_CI_CD_Project.git"
             }
             post{
                 success{
