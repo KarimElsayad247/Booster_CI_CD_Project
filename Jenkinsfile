@@ -59,7 +59,7 @@ pipeline{
             steps{
                 echo "====++++executing deploy container++++===="
                 sh """
-                    docker run -d -p 8000:8000 --name dangoApp django-app:dev
+                    docker run -d -p 8000:8000 --name dangoApp karimelsayad247/django-app:dev
                 """
             }
             post{
