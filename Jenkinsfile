@@ -61,7 +61,7 @@ pipeline{
                 sh """
                     docker container stop djangoApp-dev || true
                     docker container rm djangoApp-dev || true
-                    docker container run -d -p 8000:8000 --name dangoApp-dev karimelsayad247/django-app:dev
+                    docker container run -d -p 8000:8000 --name djangoApp-dev karimelsayad247/django-app:dev
                 """
             }
             post{
