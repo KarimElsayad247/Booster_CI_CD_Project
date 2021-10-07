@@ -21,7 +21,7 @@ pipeline{
             steps{
                 echo "====++++executing docker build++++===="
                 sh """
-                    docker build -t karimelsayad247/django-app:dev .
+                    docker build -t karimelsayad247/django-app:prod .
                 """
             }
             post{
@@ -39,7 +39,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
                         docker login -u ${USERNAME} -p ${PASSWORD}
-                        docker push karimelsayad247/django-app:dev
+                        docker push karimelsayad247/django-app:prod
                     """
                 }
             }
@@ -59,7 +59,7 @@ pipeline{
                 sh """
                     docker container stop djangoApp-dev || true
                     docker container rm djangoApp-dev || true
-                    docker container run -d -p 8000:8000 --name djangoApp-dev karimelsayad247/django-app:dev
+                    docker container run -d -p 8001:8000 --name djangoApp-dev karimelsayad247/django-app:prod
                 """
             }
             post{
